@@ -1,0 +1,19 @@
+div>
+  <input type="text" id="userInput" placeholder="Type your message..." />
+  <button id="sendButton">Send</button>
+</div>
+<div id="responseBox"></div>
+<script>
+document.getElementById("sendButton").onclick = async function() {
+  const userInput = document.getElementById("userInput").value;
+  const response = await fetch("http://127.0.0.1:5001/api/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ prompt: userInput })
+  });
+  const data = await response.json();
+  document.getElementById("responseBox").innerText = data.reply;
+};
+</script>
